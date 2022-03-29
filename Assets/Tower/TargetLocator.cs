@@ -5,6 +5,8 @@ using UnityEngine;
 public class TargetLocator : MonoBehaviour
 {
     [SerializeField] Transform weapon;
+    [SerializeField] Transform weaponBaseRotation;
+
     [SerializeField] Transform target;
     [SerializeField] float range = 15f;
     [SerializeField] ParticleSystem projectyleParticles;
@@ -40,6 +42,11 @@ public class TargetLocator : MonoBehaviour
 
         float targetDistance = Vector3.Distance(transform.position,target.position);
         weapon.LookAt(target);
+        var targetPosition = target.position;
+        targetPosition.y = 0;
+        var rotation = Quaternion.LookRotation(targetPosition);
+        weaponBaseRotation.rotation = rotation;
+        Debug.Log("Target Base rotation: " + weaponBaseRotation.rotation);
 
         if(targetDistance < range)
         {

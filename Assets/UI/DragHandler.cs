@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class DragHandler : MonoBehaviour, IBeginDragHandler,IDragHandler,IEndDragHandler
 {
     [SerializeField] Tower prefab;
+
     // [SerializeField] Image image;
 
 
@@ -74,16 +75,17 @@ public class DragHandler : MonoBehaviour, IBeginDragHandler,IDragHandler,IEndDra
        hasFunds = CheckTowerCost(prefab);
     }
 
+
     bool CheckTowerCost(Tower tower){
         image = GetComponentInChildren<Image>();
         if(bank.CurrentBalance < tower.Cost){
             image.color = new Color(image.color.r,image.color.g,image.color.b,0.5f);
-            Debug.Log("Disable UI image: " + image.gameObject.name);
+            // Debug.Log("Disable UI image: " + image.gameObject.name);
             return false;
 
         }else{
             image.color = new Color(image.color.r,image.color.g,image.color.b,1f);
-            Debug.Log("Enable UIimage: " + image.gameObject.name);
+            // Debug.Log("Enable UIimage: " + image.gameObject.name);
             return true;
         }
     }
@@ -132,11 +134,13 @@ public class DragHandler : MonoBehaviour, IBeginDragHandler,IDragHandler,IEndDra
     }
 
     public void OnEndDrag(PointerEventData eventData){
-        Debug.Log("On Drag End");
+        // Debug.Log("On Drag End");
         if(prefabInstance.gameObject.activeSelf){
         // Instantiate(prefab, coordinates,Quaternion.identity);
             if(gridManager.GetNode(coordinates).isWalkable 
-            && !pathFinder.WillBlockPath(coordinates))
+            && !pathFinder.WillBlockPath(coordinates)
+            && coordinates != pathFinder.StartCoordinates
+            && coordinates != pathFinder.EndCoordinates)
             {
                 // Debug.Log($"Creation Called - TowerPrefab:{TowerPrefab.name} - TowerPosition:{transform.position}");
                 bool isSuccessfull = prefab.CreateTower(prefab,tilePosition);

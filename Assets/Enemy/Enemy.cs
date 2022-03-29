@@ -36,4 +36,7 @@ public class Enemy : MonoBehaviour
             return;
         }
     }
+    private void OnMouseDown() {
+        CameraMovement.instance.followTransform = transform;
+    }
 }
