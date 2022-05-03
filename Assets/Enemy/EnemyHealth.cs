@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(Enemy))]
 public class EnemyHealth : MonoBehaviour
@@ -11,12 +12,18 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] int difficultyRamp = 1;
 
     TextMeshPro healthLabel;
-    int currentHitPoints = 0;
+    float currentHitPoints = 0f;
+
+    public float CurrentHitPoints { get { return currentHitPoints; } }
+    float healthPercent = 0f;
     Enemy enemy;
+
+    [SerializeField] Image HealthBar;
 
     // Start is called before the first frame update
     void OnEnable()
     {
+
         currentHitPoints = maxHitPoints;
         healthLabel = GetComponentInChildren<TextMeshPro>();
         displayHealth();
@@ -29,12 +36,24 @@ public class EnemyHealth : MonoBehaviour
 
     void OnParticleCollision(GameObject other)
     {
-       ProcessHit(); 
+        Debug.Log("Tag: " + other.gameObject.tag);
+        if(other.gameObject.tag == "CannonParicle"){
+        ProcessCononHit(10);
+        }else{
+        ProcessHit(); 
+
+        }
+    }
+
+    void ConvertHealthToPercentage()
+    {
+        healthPercent = (float) currentHitPoints / (float) maxHitPoints;
     }
 
     void ProcessHit()
     {
         currentHitPoints--;
+        ConvertHealthToPercentage();
         displayHealth();
         // Debug.Log(currentHitPoints);
     
@@ -46,9 +65,40 @@ public class EnemyHealth : MonoBehaviour
         }
     }
 
+    public void ProcessCononHit(float damage)
+    {
+        currentHitPoints = currentHitPoints - damage;
+        ConvertHealthToPercentage();
+        displayHealth();
+
+        if(currentHitPoints <= 0)
+        {
+            gameObject.SetActive(false);
+            maxHitPoints += difficultyRamp;
+            enemy.RewardGold();
+        }
+    }
+
+    public void ProcessCrystalHit(float damage)
+    {
+        currentHitPoints = currentHitPoints - damage;
+        displayHealth();
+        // Debug.Log(currentHitPoints);
+    
+        if(currentHitPoints <= 0 || currentHitPoints < 1)
+        {
+            gameObject.SetActive(false);
+            maxHitPoints += difficultyRamp;
+            enemy.RewardGold();
+        }
+    }
+
     void displayHealth()
     {
-        healthLabel.text = $"{currentHitPoints}";
+        ConvertHealthToPercentage();
+
+        healthLabel.text = $"{(int)currentHitPoints}";
+        HealthBar.fillAmount = healthPercent;
     }
 
 }

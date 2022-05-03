@@ -5,12 +5,15 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     [SerializeField] int goldReward = 25;
-    [SerializeField] int goldPenalty = 25;
+    [SerializeField] int goldPenalty = 1;
     Bank bank;
+
+    public EnemyHealth enemyHealth;
     // Start is called before the first frame update
     void Start()
     {
         bank = FindObjectOfType<Bank>();
+        enemyHealth = GetComponent<EnemyHealth>();
     }
 
     public void RewardGold()
@@ -29,7 +32,7 @@ public class Enemy : MonoBehaviour
     {
         if(bank != null)
         {
-            bank.Withdraw(goldPenalty);
+            bank.Withdraw(goldPenalty * (int)enemyHealth.CurrentHitPoints);
         }
             else
         {

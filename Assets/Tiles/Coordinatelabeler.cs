@@ -33,7 +33,7 @@ public class Coordinatelabeler : MonoBehaviour
                 DisplayCoordinates();
                 UpdateObjectName();
                 //Added for debugging
-                label.enabled = true;
+                // label.enabled = true;
         }
         SetLabelColor();
         ToggleLabels();
@@ -43,12 +43,12 @@ public class Coordinatelabeler : MonoBehaviour
     {
         if(Input.GetKeyDown( KeyCode.C))
         {
-            label.enabled = !label.IsActive();
-            // if(label.enabled){
-            //     label.enabled = false;
-            // }else{
-            //     label.enabled = true;
-            // }
+            // label.enabled = !label.IsActive();
+            if(label.enabled){
+                label.enabled = false;
+            }else{
+                label.enabled = true;
+            }
             
         }
     }
@@ -80,11 +80,11 @@ public class Coordinatelabeler : MonoBehaviour
             }else if(node.isExplored){
                 // Debug.Log("Node is explored");
                 label.color = exploredColor;
-                label.enabled = true;
+                label.enabled = false;
             }else{
                 // Debug.Log("Node is default");
                 label.color = defaultColor;
-                label.enabled = true;
+                label.enabled = false;
             }
 
 

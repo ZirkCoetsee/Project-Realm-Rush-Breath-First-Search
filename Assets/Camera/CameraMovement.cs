@@ -130,7 +130,7 @@ public Vector3 dragCurrentPosition;
         {
             newPosition += (transform.forward * -movementSpeed);
         }
-        if(Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+        if(Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow)) 
         {
             newPosition += (transform.right * movementSpeed);
         }

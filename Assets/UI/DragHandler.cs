@@ -61,7 +61,7 @@ public class DragHandler : MonoBehaviour, IBeginDragHandler,IDragHandler,IEndDra
 
     void AdjustAlpha(){
         MeshRenderer[] meshRenderers = prefabInstance.GetComponentsInChildren<MeshRenderer>();
-        Debug.Log("Adjust Alpha of meshes number" + meshRenderers.Length);
+        // Debug.Log("Adjust Alpha of meshes number" + meshRenderers.Length);
         for (int i = 0; i < meshRenderers.Length; i++)
         {
             Material mat = meshRenderers[i].material;
@@ -91,7 +91,7 @@ public class DragHandler : MonoBehaviour, IBeginDragHandler,IDragHandler,IEndDra
     }
 
     void IBeginDragHandler.OnBeginDrag(PointerEventData eventData){
-        Debug.Log("Begin Drag");
+        // Debug.Log("Begin Drag");
     }
 
     public void OnDrag(PointerEventData eventData){
@@ -145,7 +145,7 @@ public class DragHandler : MonoBehaviour, IBeginDragHandler,IDragHandler,IEndDra
                 // Debug.Log($"Creation Called - TowerPrefab:{TowerPrefab.name} - TowerPosition:{transform.position}");
                 bool isSuccessfull = prefab.CreateTower(prefab,tilePosition);
                 if(isSuccessfull){
-                    Debug.Log("Create Object");
+                    // Debug.Log("Create Object");
                     gridManager.BlockNode(coordinates);
                     pathFinder.NotifyReceivers();
                 }

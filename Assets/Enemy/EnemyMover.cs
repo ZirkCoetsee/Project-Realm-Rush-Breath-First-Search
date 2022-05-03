@@ -10,6 +10,7 @@ public class EnemyMover : MonoBehaviour
     Enemy enemy ;
     GridManager gridManager;
     Pathfinder pathFinder;
+    Animator _animator;
 
     void OnEnable()
     {
@@ -22,6 +23,8 @@ public class EnemyMover : MonoBehaviour
         enemy = GetComponent<Enemy>();
         gridManager = FindObjectOfType<GridManager>();
         pathFinder = FindObjectOfType<Pathfinder>();
+        _animator = GetComponentInChildren<Animator>();
+        _animator.SetFloat("Speed", Speed);
     }
 
     void RecalculatePath(bool resetPath)
