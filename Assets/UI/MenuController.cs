@@ -85,7 +85,8 @@ public class MenuController : MonoBehaviour
         }
     }
 
-    void PauseGame(){
+    public void PauseGame(){
+        Debug.Log("Is paused value: " + isPaused);
         if(isPaused){
         Time.timeScale = 1;
         AudioListener.pause = false;
@@ -100,6 +101,13 @@ public class MenuController : MonoBehaviour
 
 
         }
+    }
+
+    public void ContinueGame(){
+        Time.timeScale = 1;
+        AudioListener.pause = false;
+        isPaused = false;
+        Debug.Log("Resume Game");
     }
 
     public void RestartLevel(){

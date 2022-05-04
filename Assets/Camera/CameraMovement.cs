@@ -6,7 +6,7 @@ public class CameraMovement : MonoBehaviour
 {
 
 public static CameraMovement instance;
-public Transform followTransform;
+// public Transform followTransform;
 public Transform cameraTransfrom;
 public float normalSpeed;
 public float fastSpeed;
@@ -37,19 +37,22 @@ public Vector3 dragCurrentPosition;
 
     void LateUpdate()
     {
-        if(followTransform != null)
-        {
-            transform.position = followTransform.position;
-        }else
-        {
+        // if(followTransform != null)
+        // {
+        //     transform.position = followTransform.position;
+        // }else
+        // {
+        //     HandleMovementInput();
+        //     HandleMouseInput();
+        // }
+
+        // if(Input.GetKeyDown(KeyCode.Escape))
+        // {
+        //     followTransform = null;
+        // }
+
             HandleMovementInput();
             HandleMouseInput();
-        }
-
-        if(Input.GetKeyDown(KeyCode.Escape))
-        {
-            followTransform = null;
-        }
 
     }
 
